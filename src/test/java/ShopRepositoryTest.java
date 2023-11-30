@@ -38,4 +38,31 @@ class ShopRepositoryTest {
 
     }
 
+    @Test
+    public void addRecurringId() {
+        service.add(prod1);
+        service.add(prod2);
+        service.add(prod3);
+        //service.add(prod1);
+
+
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            service.add(prod1);
+        });
+
+    }
+
+    @Test
+    public void idNewProduct() {
+        service.add(prod1);
+        service.add(prod2);
+        service.add(prod3);
+
+
+        Product[] expected = {prod1, prod2, prod3};
+        Product[] actual = service.findAll();
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
 }
