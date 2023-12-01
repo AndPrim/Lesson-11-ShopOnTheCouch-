@@ -24,13 +24,13 @@ public class ShopRepository {
      * @param product — добавляемый товар
      */
     public void add(Product product) {
-        for (Product prod : products) {
-            if (prod.getId() == product.id) {
-                throw new AlreadyExistsException(
-                        "Товара с таким индификатором id уже существует."
-                );
-            }
+        Product no = findById(product.id);
+        if (no != null) {
+            throw new AlreadyExistsException(
+                    "Товар с таким индификатором id уже существует."
+            );
         }
+
         products = addToArray(products, product);
     }
 
